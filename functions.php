@@ -20,7 +20,8 @@
     add_theme_support('title-tag');
   }
 
-  // Manipuilating default URL based queries
+  // Manipulating default URL based queries
+  // Use when the default URL defines the post type
   function university_adjust_queries($query) {
     if (!is_admin() 
       AND is_post_type_archive('event') 
@@ -41,6 +42,7 @@
     }
   }
 
+  // syntax: add_action(hook, function name)
   add_action('wp_enqueue_scripts', 'university_files');
   add_action('after_setup_theme', 'university_features');
   add_action('pre_get_posts', 'university_adjust_queries')
