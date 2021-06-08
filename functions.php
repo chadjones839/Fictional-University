@@ -18,6 +18,11 @@
     register_nav_menu('footer-menu-explore', 'Footer Menu Explore');
     register_nav_menu('footer-menu-learn', 'Footer Menu Learn');
     add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    // syntax add_image_size(unique name, eidth, height, crop)
+    add_image_size('prof-portrait', 260, 400, true);
+    add_image_size('prof-square', 200, 200, true);
+    add_image_size('page-banner', 1200, 350, true);
   }
 
   // Manipulating default URL based queries
@@ -30,19 +35,18 @@
     }
 
     if (!is_admin() AND is_post_type_archive('event') AND $query-> is_main_query()) {
-        $today = date('Ymd');
-        $query->set('meta_key', 'event_date');
-        $query->set('orderby', 'meta_value_num');
-        $query->set('order', 'ASC');
-        $query->set('meta_query', array(
-          array(
-            'key' => 'event_date',
-            'compare' => '>=',
-            'value' => $today,
-            'type' => 'numeric'
-          )
+      $today = date('Ymd');
+      $query->set('meta_key', 'event_date');
+      $query->set('orderby', 'meta_value_num');
+      $query->set('order', 'ASC');
+      $query->set('meta_query', array(
+        array(
+          'key' => 'event_date',
+          'compare' => '>=',
+          'value' => $today,
+          'type' => 'numeric'
         )
-      );
+      ));
     }
   }
 
