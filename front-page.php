@@ -18,7 +18,7 @@
       <?php
         $today = date('Ymd');
         $homepageEvents = new WP_Query(array(
-          'posts_per_page' => -1, // -1 returns all posts matching type
+          'posts_per_page' => 2, // -1 returns all posts matching type
           'post_type' => 'event',
           'meta_key' => 'event_date',
           'orderby' => 'meta_value_num',
@@ -36,7 +36,7 @@
         while($homepageEvents->have_posts()) {
           $homepageEvents->the_post(); ?>
           <div class="event-summary">
-            <a class="event-summary__date t-center" href="#">
+            <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">
             <!-- HOWTO: get custom date field -->
               <span class="event-summary__month"><?php 
                 $eventDate = new DateTime(get_field('event_date')); 
