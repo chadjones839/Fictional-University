@@ -50,6 +50,58 @@
     }
   }
 
+  function pageBanner2() {
+    ?>
+    <div class="page-banner">
+      <div class="page-banner__bg-image" style="background-image: url(<?php
+        $pageBannerImg = get_field('page_banner_background_image');
+
+          echo $pageBannerImg['sizes']['page-banner'];
+        
+       
+       ?>">
+      </div>
+      <div class="page-banner__content container container--narrow">
+        <h1 class="page-banner__title"><?php the_title(); ?></h1>
+        <div class="page-banner__intro">
+          <p><?php echo get_field('page_banner_subtitle'); ?></p>
+        </div>
+      </div>  
+    </div>
+  <?php }
+
+function pageBanner($args = NULL) {
+  
+  if (!$args['title']) {
+    $args['title'] = get_the_title();
+  }
+ 
+  if (!$args['subtitle']) {
+    $args['subtitle'] = get_field('page_banner_subtitle');
+  }
+ 
+  if (!$args['photo']) {
+    if (get_field('page_banner_background_image') AND !is_archive() AND !is_home() ) {
+      $args['photo'] = get_field('page_banner_background_image')['sizes']['page-banner'];
+    } else {
+      $args['photo'] = get_theme_file_uri('/images/ocean.jpg');
+    }
+  }
+  ?>
+  <div class="page-banner">
+      <div class="page-banner__bg-image" style="background-image: url(<?php echo $args['photo'];
+       ?>">
+      </div>
+      <div class="page-banner__content container container--narrow">
+        <h1 class="page-banner__title"><?php echo $args['title']; ?></h1>
+        <div class="page-banner__intro">
+          <p><?php echo $args['subtitle']; ?></p>
+        </div>
+      </div>  
+    </div>
+<?php }
+
+
   // syntax: add_action(hook, function name)
   add_action('wp_enqueue_scripts', 'university_files');
   add_action('after_setup_theme', 'university_features');
